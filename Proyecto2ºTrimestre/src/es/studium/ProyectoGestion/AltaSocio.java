@@ -32,8 +32,10 @@ public class AltaSocio implements WindowListener, ActionListener {
         ventana.setSize(400, 300);
         ventana.setResizable(false);
         ventana.setLocationRelativeTo(null);
+        
         aceptarbtn.addActionListener(this);
         limpiarbtn.addActionListener(this);
+        
         ventana.addWindowListener(this);
 
         ventana.add(dniSociolbl);
@@ -58,18 +60,24 @@ public class AltaSocio implements WindowListener, ActionListener {
         Mensaje.setResizable(false);
         Mensaje.setLocationRelativeTo(null);
         Mensaje.add(lblMensaje);
-        Mensaje.addWindowListener(new WindowAdapter() 
         
-        {
-            @Override
-            public void windowClosing(WindowEvent e) 
-            {
-                Mensaje.dispose();
-            }
-        }
-        );
         
         ventana.setVisible(true);
+        
+        Mensaje.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                Mensaje.dispose();
+            }
+        });
+        
+        
+        ventana.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                ventana.dispose();
+            }
+        });
     }
     
     @Override
@@ -111,14 +119,9 @@ public class AltaSocio implements WindowListener, ActionListener {
 
     @Override
     public void windowClosing(WindowEvent e) {
-        if (Mensaje.isActive()) 
-        {
-            Mensaje.setVisible(false);
-        } 
-        else
-		{
-			System.exit(0);
-		}
+        ventana.dispose();
+        
+
     }
 
     @Override
